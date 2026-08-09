@@ -3,19 +3,46 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "android:release": "cd android && ./gradlew assembleRelease",
+    "ios:release": "cd ios && xcodebuild -workspace MeuBanco.xcworkspace -scheme MeuBanco -configuration Release",
+    "pods": "cd ios && pod install",
+    "pods:update": "cd ios && pod update",
+    "clean:android": "cd android && ./gradlew clean",
+    "clean:ios": "cd ios && xcodebuild clean && rm -rf build/ Pods/ Podfile.lock",
+    "clean:metro": "watchman watch-del-all && rm -rf $TMPDIR/metro-* $TMPDIR/haste-map-*",
+    "clean:all": "npm run clean:android && npm run clean:ios && npm run clean:metro && rm -rf node_modules && npm install && npm run pods",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\"",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "e2e:build": "detox build -c ios.sim.debug",
+    "e2e:test": "detox test -c ios.sim.debug",
+    "security:audit": "npm audit --audit-level=moderate",
+    "security:scan": "snyk test",
+    "preinstall": "npx only-allow yarn"
   },
   "dependencies": {
+    "@react-navigation/native": "^7.2.2",
+    "@react-navigation/native-stack": "^7.14.12",
     "expo": "~54.0.33",
+    "expo-local-authentication": "^55.0.13",
     "expo-status-bar": "~3.0.9",
     "react": "19.1.0",
-    "react-native": "0.81.5"
+    "react-native": "0.81.5",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "^4.24.0",
+    "styled-components": "^6.4.1"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
+    "@types/styled-components": "^5.1.36",
+    "@types/styled-components-react-native": "^5.2.5",
     "typescript": "~5.9.2"
   },
   "private": true

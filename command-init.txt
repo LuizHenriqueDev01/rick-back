@@ -1,0 +1,27 @@
+1- Gerar app com expo
+-> npx create-expo-app@latest meu-banco --template blank-typescript
+
+2- Mudar/Adicionar informações dentro do app.json antes de prebuild
+{
+  "expo": {
+    "name": "MeuBanco",
+    "slug": "meu-banco",
+    "scheme": "meubanco",
+    "ios": {
+      "bundleIdentifier": "com.suaempresa.meubanco",
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "com.suaempresa.meubanco",
+      "versionCode": 1
+    },
+    "version": "1.0.0"
+  }
+}
+
+3- Gerar pastas nativas (prebuild)
+-> npx expo prebuild --clean
+
+4- Remover pastas nativas do .gitignore
+
+5- Scripts no pachage.json
