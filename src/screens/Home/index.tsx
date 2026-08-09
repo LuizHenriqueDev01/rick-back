@@ -1,6 +1,17 @@
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import styled from 'styled-components/native';
+import type { RootStackParamList } from '../../navigation';
+
+type HomeNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function HomeScreen() {
+  const navigation = useNavigation<HomeNavigationProp>();
+
+  function handleLogout() {
+    navigation.replace('Login');
+  }
+
   return (
     <Container>
       <Card>
@@ -10,6 +21,10 @@ export default function HomeScreen() {
 
         <BalanceLabel>Saldo disponível</BalanceLabel>
         <Balance>R$ 12.450,00</Balance>
+
+        <LogoutButton onPress={handleLogout}>
+          <LogoutButtonText>Sair</LogoutButtonText>
+        </LogoutButton>
       </Card>
     </Container>
   );
@@ -60,5 +75,22 @@ const BalanceLabel = styled.Text`
 const Balance = styled.Text`
   font-size: 32px;
   font-weight: 700;
+  color: #f5a623;
+`;
+
+const LogoutButton = styled.TouchableOpacity`
+  margin-top: 32px;
+  padding: 14px;
+  border-radius: 14px;
+  border-width: 1px;
+  border-color: #333;
+  background-color: #2a2a2a;
+  align-items: center;
+  align-self: stretch;
+`;
+
+const LogoutButtonText = styled.Text`
+  font-size: 15px;
+  font-weight: 600;
   color: #f5a623;
 `;
