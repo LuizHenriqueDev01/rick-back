@@ -11,4 +11,13 @@
 -keep class com.swmansion.reanimated.** { *; }
 -keep class com.facebook.react.turbomodule.** { *; }
 
+# Expo modules resolve native modules by reflection (class name lookup), so R8
+# must not rename or strip them, or the app crashes at runtime with "module not found".
+-keep class expo.modules.** { *; }
+-keepclassmembers class * extends expo.modules.kotlin.modules.Module { *; }
+
+# Hermes internals used via JNI from the native engine.
+-keep class com.facebook.hermes.unicode.** { *; }
+-keep class com.facebook.jni.** { *; }
+
 # Add any project specific keep options here:
